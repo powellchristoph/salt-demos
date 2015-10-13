@@ -1,0 +1,86 @@
+{% set c = pillar.get('cassandra', {}) -%}
+cluster_name: "{{ c.cluster_name }}"
+num_tokens: {{ c.num_tokens }}
+hinted_handoff_enabled: {{ c.hinted_handoff_enabled }}
+max_hint_window_in_ms: {{ c.max_hint_window_in_ms }}
+hinted_handoff_throttle_in_kb: {{ c.hinted_handoff_throttle_in_kb }}
+max_hints_delivery_threads: {{ c.max_hints_delivery_threads }}
+batchlog_replay_throttle_in_kb: {{ c.batchlog_replay_throttle_in_kb }}
+authenticator: {{ c.authenticator }}
+authorizer: {{ c.authorizer }}
+permissions_validity_in_ms: {{ c.permissions_validity_in_ms }}
+partitioner: {{ c.partitioner }}
+data_file_directories: 
+{%- for dir in c.data_file_directories %}
+    - {{ dir }}
+{%- endfor %}
+commitlog_directory: {{ c.commitlog_directory }}
+disk_failure_policy: {{ c.disk_failure_policy }}
+commit_failure_policy: {{ c.commit_failure_policy }}
+key_cache_size_in_mb: {{ c.key_cache_size_in_mb }}
+key_cache_save_period: {{ c.key_cache_save_period }}
+row_cache_size_in_mb: {{ c.row_cache_size_in_mb }}
+row_cache_save_period: {{ c.row_cache_save_period }}
+counter_cache_size_in_mb: {{ c.counter_cache_size_in_mb }}
+counter_cache_save_period: {{ c.counter_cache_save_period }}
+saved_caches_directory: {{ c.saved_caches_directory }}
+commitlog_sync: {{ c.commitlog_sync }}
+commitlog_sync_period_in_ms: {{ c.commitlog_sync_period_in_ms }}
+commitlog_segment_size_in_mb: {{ c.commitlog_segment_size_in_mb }}
+seed_provider: 
+    - class_name: {{ c.seed_provider[0]['class_name'] }}
+      parameters: 
+          - seeds: "{{ c.seed_provider[0]['parameters'][0]['seeds'] }}"
+concurrent_reads: {{ c.concurrent_reads }}
+concurrent_writes: {{ c.concurrent_writes }}
+concurrent_counter_writes: {{ c.concurrent_counter_writes }}
+memtable_allocation_type: {{ c.memtable_allocation_type }}
+index_summary_capacity_in_mb: {{ c.index_summary_capacity_in_mb }}
+index_summary_resize_interval_in_minutes: {{ c.index_summary_resize_interval_in_minutes }}
+trickle_fsync: {{ c.trickle_fsync }}
+trickle_fsync_interval_in_kb: {{ c.trickle_fsync_interval_in_kb }}
+storage_port: {{ c.storage_port }}
+ssl_storage_port: {{ c.ssl_storage_port }}
+start_native_transport: {{ c.start_native_transport }}
+native_transport_port: {{ c.native_transport_port }}
+start_rpc: {{ c.start_rpc }}
+rpc_port: {{ c.rpc_port }}
+rpc_keepalive: {{ c.rpc_keepalive }}
+rpc_server_type: {{ c.rpc_server_type }}
+thrift_framed_transport_size_in_mb: {{ c.thrift_framed_transport_size_in_mb }}
+incremental_backups: {{ c.incremental_backups }}
+snapshot_before_compaction: {{ c.snapshot_before_compaction }}
+auto_snapshot: {{ c.auto_snapshot }}
+tombstone_warn_threshold: {{ c.tombstone_warn_threshold }}
+tombstone_failure_threshold: {{ c.tombstone_failure_threshold }}
+column_index_size_in_kb: {{ c.column_index_size_in_kb }}
+batch_size_warn_threshold_in_kb: {{ c.batch_size_warn_threshold_in_kb }}
+compaction_throughput_mb_per_sec: {{ c.compaction_throughput_mb_per_sec }}
+compaction_large_partition_warning_threshold_mb: {{ c.compaction_large_partition_warning_threshold_mb }}
+sstable_preemptive_open_interval_in_mb: {{ c.sstable_preemptive_open_interval_in_mb }}
+read_request_timeout_in_ms: {{ c.read_request_timeout_in_ms }}
+range_request_timeout_in_ms: {{ c.range_request_timeout_in_ms }}
+write_request_timeout_in_ms: {{ c.write_request_timeout_in_ms }}
+counter_write_request_timeout_in_ms: {{ c.counter_write_request_timeout_in_ms }}
+cas_contention_timeout_in_ms: {{ c.cas_contention_timeout_in_ms }}
+truncate_request_timeout_in_ms: {{ c.truncate_request_timeout_in_ms }}
+request_timeout_in_ms: {{ c.request_timeout_in_ms }}
+cross_node_timeout: {{ c.cross_node_timeout }}
+endpoint_snitch: {{ c.endpoint_snitch }}
+dynamic_snitch_update_interval_in_ms: {{ c.dynamic_snitch_update_interval_in_ms }}
+dynamic_snitch_reset_interval_in_ms: {{ c.dynamic_snitch_reset_interval_in_ms }}
+dynamic_snitch_badness_threshold: {{ c.dynamic_snitch_badness_threshold }}
+request_scheduler: {{ c.request_scheduler }}
+server_encryption_options: 
+    internode_encryption: {{ c.server_encryption_options.internode_encryption }}
+    keystore: {{ c.server_encryption_options.keystore }}
+    keystore_password: {{ c.server_encryption_options.keystore_password }}
+    truststore: {{ c.server_encryption_options.truststore }}
+    truststore_password: {{ c.server_encryption_options.truststore_password }}
+client_encryption_options:
+    enabled: {{ c.client_encryption_options.enabled }}
+    keystore: {{ c.client_encryption_options.keystore }}
+    keystore_password: {{ c.client_encryption_options.keystore_password }}
+internode_compression: {{ c.internode_compression }}
+inter_dc_tcp_nodelay: {{ c.inter_dc_tcp_nodelay }}
+
